@@ -34,6 +34,13 @@
             "year": "1995",
             "autor": "Yoshiyuki Sadamoto",
             "id": "5"
+        },
+        {
+            "nombre": "nombre1",
+            "genero": "genero",
+            "year": "año",
+            "autor": "autor",
+            "id": "f5d5f2"
         }
     ]
 }

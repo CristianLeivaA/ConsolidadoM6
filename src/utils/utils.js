@@ -1,26 +1,104 @@
-const fs = require("fs");
+const fs = require('fs/promises');
+const { v4: uuid } = require('uuid');
 
-/*
-const leerArchivo = async (archivo) => {
-    try {
-        await fs.readFile('../db(${archivo}', "utf-8", (error, data) => {
-            let lectura = JSON.parse(data)
-            return lectura
-        })
-    } catch (error) {
-        throw new Error({message: "Error al leer el archivo", error})
-    }
-} 
-*/
+const leerAnime = () => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let animes = await fs.readFile('./src/db/anime.json', 'utf8');
+			let formatAnimes = JSON.parse(animes);
+			resolve(formatAnimes);
+		} catch (error) {
+			reject('Error al leer archivo anime.json');
+		}
+	});
+};
 
-const leerArchivo2 = (archivo) => {
-    return new Promise((resolve, reject) => {
-        fs.readFile('../db/${archivo}', "utf-8", (error, data) => {
-            if(error) {
-                console.log('Error: ${error}')
-                reject("Error al leer el archivo")
-            }
-            resolve(JSON.parse(data))
-        })
-    })
-}
+const buscarPorNombre = (nombre) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let data = await leerAnime();
+			let animeEncontrado = data.animes.find(
+				(anime) => anime.nombre.toLowerCase() == nombre.toLowerCase()
+			);
+			resolve(animeEncontrado);
+		} catch (error) {
+			reject('Anime no encontrado');
+		}
+	});
+};
+
+const agregarAnime = (nombre, genero, year, autor) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let data = await leerAnime();
+			let nuevoAnime = {
+				nombre,
+				genero,
+				year,
+				autor,
+				id: uuid().slice(0, 6),
+			};
+			console.log(data)
+			data.animes.push(nuevoAnime);
+			await fs.writeFile(
+				'./src/db/anime.json',
+				JSON.stringify(data, null, 4),
+				'utf8'
+			);
+			resolve(
+				`Se ha guardado correctamente el nuevo anime ${nuevoAnime.nombre}`
+			);
+		} catch (error) {
+			reject(error);
+		}
+	});
+};
+
+const actualizarAnime = (id, nombre, genero, year, autor) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let data = await leerAnime();
+			let indexEncontrado = data.animes.findIndex((anime) => anime.id == id);
+			let animeEncontrado = data.animes[indexEncontrado];
+
+			animeEncontrado.nombre = nombre;
+			animeEncontrado.genero = genero;
+			animeEncontrado.year = year;
+			animeEncontrado.autor = autor;
+			await fs.writeFile(
+				'./src/db/anime.json',
+				JSON.stringify(data, null, 4),
+				'utf8'
+			);
+			resolve(`El anime ${animeEncontrado.nombre} ha sido actualizado con éxito`);
+		} catch (error) {
+			reject('Error al actualizar el anime');
+		}
+	});
+};
+
+const borrarAnime = (id) => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			let data = await leerAnime();
+			let indexEncontrado = data.animes.findIndex((anime) => anime.id == id);
+			data.animes.splice(indexEncontrado, 1);
+			await fs.writeFile(
+				'./src/db/anime.json',
+				JSON.stringify(data, null, 4),
+				'utf8'
+			);
+			resolve('Anime borrado con éxito');
+		} catch (error) {
+			reject('Error al intentar borrar el anime');
+		}
+	});
+};
+
+module.exports = {
+	leerAnime,
+	buscarPorNombre,
+	agregarAnime,
+	actualizarAnime,
+	borrarAnime,
+};

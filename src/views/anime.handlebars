@@ -1,0 +1,22 @@
+<section class="container">
+{{#if anime}}
+    <h3 class="display-6 text-center my-5">Información sobre <span class="fw-bolder display-5">{{anime.nombre}}</span></h3>
+
+    <div class="card mx-auto text-white bg-primary mb-3" style="width: 24rem;">
+        <div class="card-header">
+            <h5 class="card-title">Titulo: <span class="fw-bold  fs-4">{{anime.nombre}}</span></h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Genero: <span class="fw-bold  fs-4">{{anime.genero}}</span></h5>
+            <h5 class="card-title">Año estreno: <span class="fw-bold  fs-4">{{anime.year}}</span></h5>
+            <h5 class="card-title">Autor: <span class="fw-bold  fs-4">{{anime.autor}}</span></h5>
+        </div>
+        <div class="d-grid card-footer text-body-secondary">
+            <a class=" btn btn-success" href="/">Volver</a>
+        </div>
+    </div>
+
+{{else}}
+    {{> jumbotron titulo='No hemos podido encontrar el anime que buscas' descripcion='¿No encuentras el anime que buscas en la lista? No te preocupes, inténtalo buscando otro anime. Hay una gran variedad por descubrir, ¡así que no te desanimes!'}}
+{{/if}}
+</section>
