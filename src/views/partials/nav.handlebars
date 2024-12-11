@@ -5,23 +5,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
                 <a class="navbar-brand" href="/home">
-                {{! ARREGLAR IMAGEN, NO FUNCIONA EL SRC DESDE CARPETAS }}
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/One_piece.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                    MisAnimes
+              
+                    <img src="https://uploads.turbologo.com/uploads/design/preview_image/4551835/preview_image20240724-1-su0kei.png" alt="" width="150" height="150" class="d-inline-block align-text-center">
+                    
                 </a>
-                <li class="nav-item">
-                    <a class="nav-link {{#if home}}active{{/if}}" aria-current="page" href="/home">Inicio</a>
+                <li class="nav-item mt-5 ">
+                    <a class="fs-3 nav-link {{#if home}}active{{/if}}  " aria-current="page" href="/home">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{#if new}}active{{/if}}" href="/animes/new">Agregar Anime</a>
+                <li class=" nav-item mt-5 ">
+                    <a class="fs-3 nav-link {{#if new}}active{{/if}} " href="/animes/new">Agregar Anime</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/animes">API</a>
+                <li class="nav-item mt-5 ">
+                    <a class="fs-3 nav-link " href="/animes">API</a>
                 </li>
             </ul>
-            {{! BUSCADOR DE ANIME POR NOMBRE }}
+            
             <form class="d-flex" role="search" id="buscarNombre">
                 <input class="form-control me-2" type="search" placeholder="Nombre del anime" aria-label="Search" id="nombreAnime">
                 <button class="btn btn-success" type="submit">Buscar</button>
